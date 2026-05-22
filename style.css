@@ -193,3 +193,38 @@ body.scenery-active .sky { opacity: 0; }
 @keyframes fall {
     to { transform: translateY(110vh); }
 }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    /* 1. Hide the tent flaps on narrow screens */
+    .tent-flap {
+        display: none !important;
+    }
+
+    /* 2. Make the main question wider and smaller so it fits */
+    .smoke-text {
+        width: 95%;
+        font-size: 1.6rem;
+    }
+
+    /* 3. Scale down the fire and the button slightly */
+    .fire-emoji {
+        font-size: 5rem;
+    }
+    .wooden-sign {
+        padding: 15px 30px;
+        font-size: 1.5rem;
+    }
+
+    /* 4. Fix the success message so "Pack the RAV4!" stays on one line */
+    .success-message {
+        width: 95%; /* Allow the box to use the full screen width */
+        padding: 20px 10px; /* Reduce the padding inside the box */
+    }
+    
+    .success-message .smoke-text {
+        font-size: 1.1rem; /* Shrink the font size */
+        white-space: nowrap; /* Strictly forces it onto a single line */
+        margin-bottom: 0;
+    }
+}
