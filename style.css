@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka One', cursive;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    perspective: 800px; /* Creates the 3D depth */
+    background-color: #090a0f;
+    position: relative;
+}
+
+/* --- THE NIGHT SKY --- */
+.sky {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top, #1b2735 0%, #090a0f 100%);
+    z-index: -10;
+    transition: opacity 1s ease;
+}
+
+.moon {
+    font-size: 5rem;
+    position: absolute;
+    top: 5%;
+    right: 15%;
+    filter: drop-shadow(0 0 30px #fffacd);
+    transition: opacity 0.5s ease;
+}
+
+/* --- THE 3D VR TENT --- */
+.vr-tent {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    transform-style: preserve-3d; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.tent-interior {
+    position: absolute;
+    width: 100vw; 
+    height: 100vh;
+    /* Kept at Z=0 so clicks work perfectly every time */
+    transform: translateZ(0); 
+    background: radial-gradient(circle at center 70%, #5c3a21 0%, #150b04 70%, #000 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5vh;
+}
+
+.tent-flap {
+    position: absolute;
+    top: -10vh;
+    width: 50vw; /* Thinner flaps so text isn't hidden */
+    height: 120vh;
+    background: linear-gradient(to bottom, #2a331f, #3e4a2e);
+    pointer-events: none; /* CRITICAL: Allows clicks to pass through the flaps to the button */
+}
+
+.left-flap {
+    left: -5vw;
+    transform-origin: left center;
+    /* Pops the flap out towards you */
+    transform: rotateY(25deg) translateZ(100px); 
+    clip-path: polygon(0 0, 100% 0, 15% 100%, 0 100%); /* Wider opening */
+}
+
+.right-flap {
+    right: -5vw;
+    transform-origin: right center;
+    /* Pops the flap out towards you */
+    transform: rotateY(-25deg) translateZ(100px);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 85% 100%); /* Wider opening */
+}
+
+/* --- TENT CONTENT --- */
+.smoke-text {
+    color: #f0f0f0;
+    font-size: clamp(1.8rem, 4vw, 3rem); /* Shrinks automatically on small screens */
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255, 102, 0, 0.6); 
+    margin-bottom: 20px;
+    width: 80%; /* Keeps it away from the flaps */
+    z-index: 10;
+}
+
+.fire-emoji {
+    font-size: 7rem;
+    margin-bottom: 30px;
+    animation: flicker 0.1s infinite alternate;
+    text-shadow: 0 0 40px #ff6600, 0 0 80px #ff3300;
+}
+
+@keyframes flicker {
+    0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+    100% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+}
+
+/* --- THE BUTTONS --- */
+.wooden-sign {
+    background-color: #8B4513;
+    color: #FFE4B5;
+    font-size: 2rem;
+    padding: 20px 50px;
+    border: 5px solid #5C2E0B;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.6);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 20; /* Keeps it strictly above the fire */
+}
+
+.mosquito {
+    position: fixed; 
+    bottom: 30%; right: 35%;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Keeps it centered inside the force field */
+    gap: 5px;
+    z-index: 100; 
+    transition: transform 0.1s ease; 
+    
+    /* THE FORCE FIELD */
+    padding: 60px; /* Makes the clickable area massive so it runs away early! */
+    transform-origin: center; /* Ensures it shrinks toward its own center */
+}
+
+.mosquito span {
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* --- SUCCESS STATE --- */
+body.scenery-active {
+    background: url('https://media.istockphoto.com/id/2130934199/photo/amazing-scenery-at-a-mountain-lake-in-the-bavarian-alps.jpg?s=612x612&w=0&k=20&c=_veXqFDnbN_A2aUQ5s5tCvOJRsYer3LDmwHyUPKLwZM=') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.scenery-active .sky { opacity: 0; }
+
+.hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+.success-message {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 100;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+}
+
+/* --- ANIMATIONS --- */
+.excitement-pop {
+    position: fixed;
+    color: #ffeb3b;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    pointer-events: none;
+    animation: floatUp 1.5s ease-out forwards;
+    z-index: 50;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+}
+
+.emoji {
+    position: fixed;
+    top: -50px;
+    font-size: 3rem;
+    z-index: 15;
+    animation: fall linear forwards;
+    pointer-events: none;
+}
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}

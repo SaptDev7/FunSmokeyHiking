@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Important Question!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="emoji-container"></div>
+    <div id="excitement-container"></div>
+
+    <!-- The Starry Night Sky -->
+    <div class="sky" id="sky"></div>
+    <div class="moon" id="moon">🌕</div>
+
+    <!-- The 3D VR Tent -->
+    <div class="vr-tent" id="vr-tent">
+        <!-- The Interior -->
+        <div class="tent-interior">
+            <h1 class="smoke-text">Are you down to hit the hiking trails this weekend?</h1>
+            <div class="fire-emoji">🔥</div>
+            <button id="yes-btn" class="wooden-sign">YES!</button>
+        </div>
+
+        <!-- The Flaps coming OUT towards you -->
+        <div class="tent-flap left-flap"></div>
+        <div class="tent-flap right-flap"></div>
+    </div>
+
+    <!-- The mosquito now lives fully outside the tent so it can't get trapped -->
+    <button id="no-btn" class="mosquito">🦟 <span>No</span></button>
+
+    <!-- Hidden success message -->
+    <div class="success-message hidden" id="success-message">
+        <h1 class="smoke-text" style="color: #333;">Awesome! Pack the Bags! 🎒⛰️🚙</h1>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
